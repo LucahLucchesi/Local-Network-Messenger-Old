@@ -1,2 +1,2 @@
-#Design Doc
-CS145 Final
+# Design Doc
+

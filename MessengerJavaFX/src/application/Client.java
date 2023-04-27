@@ -56,5 +56,9 @@ public class Client {
 			System.out.println("problem encoding");
 		}
 	}
+	
+	public void closeConnection() {
+		isClosing = true;
+	}
 
 }

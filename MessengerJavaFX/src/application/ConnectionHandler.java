@@ -3,12 +3,17 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Base64;
 
+import javafx.scene.control.TextArea;
+
 public class ConnectionHandler implements Runnable {
 	private Socket server;
 	private BufferedReader in;
+	@SuppressWarnings("unused")
+	private TextArea chatBox;
 	
-	public ConnectionHandler(Socket server) throws IOException {
+	public ConnectionHandler(Socket server, TextArea chatBox) throws IOException {
 		this.setServer(server);
+		this.chatBox = chatBox;
 		in = new BufferedReader(new InputStreamReader(server.getInputStream()));
 		
 	}
@@ -44,6 +49,10 @@ public class ConnectionHandler implements Runnable {
 
 	public void setServer(Socket server) {
 		this.server = server;
+	}
+	
+	public void printMsg(String msg) {
+		chatBox.appendText(msg + "\n");
 	}
 
 }

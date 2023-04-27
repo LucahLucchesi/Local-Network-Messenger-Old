@@ -2,16 +2,20 @@ package application;
 import java.net.*;
 import java.util.Base64;
 import java.util.Scanner;
+
+import javafx.scene.control.TextArea;
+
 import java.io.*;
 
 public class Server {
 	
 	private String serverName;
 	private ServerSocket server = null;
+	private TextArea chatBox;
 	
-	
-	public Server(String serverName, int serverPort) throws IOException {
+	public Server(String serverName, int serverPort, TextArea chatBox) throws IOException {
 		this.serverName = serverName;
+		this.chatBox = chatBox;
 		server = new ServerSocket(serverPort);
 	}
 	
@@ -25,7 +29,7 @@ public class Server {
 		
 		BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 		
-		ConnectionHandler serverConnection = new ConnectionHandler(client);
+		ConnectionHandler serverConnection = new ConnectionHandler(client, chatBox);
 		PrintWriter output = new PrintWriter(client.getOutputStream(), true);
 		
 

@@ -37,8 +37,6 @@ public class Client {
 		new Thread(serverConnection).start();
 		
 		if(isClosing) {
-			System.out.println("program closed");
-			output.println(Base64.getEncoder().encodeToString("[System]: Client Disconnected.".getBytes("UTF-8")));
 			socket.close();
 			System.exit(0);
 		}

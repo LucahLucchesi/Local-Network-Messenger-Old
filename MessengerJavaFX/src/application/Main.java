@@ -103,7 +103,7 @@ public class Main extends Application {
 						hostServer.closeConnection();
 					}else if(client != null) {
 						client.closeConnection();
-				}
+					}
 					Platform.exit();
 					System.exit(0);
 				}

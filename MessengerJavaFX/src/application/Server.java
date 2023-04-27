@@ -38,7 +38,7 @@ public class Server {
 		
 	}
 	
-	public void sendMessage(String msg) {
+	public void sendServerMessage(String msg) {
 		try {
 			String encodedMsg = Base64.getEncoder().encodeToString(msg.getBytes("UTF-8"));
 			output.println(encodedMsg);

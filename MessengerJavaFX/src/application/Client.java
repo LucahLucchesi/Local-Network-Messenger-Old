@@ -43,7 +43,7 @@ public class Client {
 		
 	}
 	
-	public void sendMessage(String msg) {
+	public void sendClientMessage(String msg) {
 		try {
 			String encodedMsg = Base64.getEncoder().encodeToString(msg.getBytes("UTF-8"));
 			output.println(encodedMsg);

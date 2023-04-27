@@ -82,7 +82,7 @@ public class Main extends Application {
 			chatBox.setMaxSize(400, 250);
 			chatBox.setWrapText(true);
 			messageField.setEditable(true);
-			
+			sendButton.setDefaultButton(true);
 			
 			HBox messageSender = new HBox(messageField, sendButton);
 			VBox chatWindow = new VBox(chatBox, messageSender);
@@ -93,6 +93,14 @@ public class Main extends Application {
 			app.setScene(infoScene);
 			app.setTitle("Info");
 			app.show();
+			
+			app.setOnCloseRequest(event -> {
+				if(hostServer != null) {
+					hostServer.closeConnection();
+				}else if(client != null) {
+					client.closeConnection();
+				}
+			});
 			
 			hostButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -161,6 +169,7 @@ public class Main extends Application {
 					}
 				}
 			});
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();

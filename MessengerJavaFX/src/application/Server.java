@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.Scanner;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.*;
 
@@ -12,10 +13,12 @@ public class Server {
 	private String serverName;
 	private ServerSocket server = null;
 	private TextArea chatBox;
+	private TextField msgField;
 	
-	public Server(String serverName, int serverPort, TextArea chatBox) throws IOException {
+	public Server(String serverName, int serverPort, TextArea chatBox, TextField msgField) throws IOException {
 		this.serverName = serverName;
 		this.chatBox = chatBox;
+		this.msgField = msgField;
 		server = new ServerSocket(serverPort);
 	}
 	
@@ -50,6 +53,12 @@ public class Server {
 		client.close();
 		server.close();
 		System.exit(0);
+	}
+	
+	public String sendMessage() {
+		String msg = msgField.getText();
+		msgField.clear();
+		return msg;
 	}
 
 }

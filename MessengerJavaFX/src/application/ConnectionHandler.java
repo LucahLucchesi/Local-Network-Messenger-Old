@@ -28,7 +28,7 @@ public class ConnectionHandler implements Runnable {
 				if(serverResponse == null) break;
 				byte[] decodedMsg = Base64.getDecoder().decode(serverResponse);
 				String msg = new String(decodedMsg, "UTF-8");
-				System.out.println(msg);
+				printMsg(msg);
 			}
 		}catch(IOException e) {
 			System.out.println(e.getMessage());

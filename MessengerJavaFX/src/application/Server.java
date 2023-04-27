@@ -1,64 +1,51 @@
 package application;
 import java.net.*;
 import java.util.Base64;
-import java.util.Scanner;
+
 
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
 
 import java.io.*;
 
 public class Server {
 	
-	private String serverName;
 	private ServerSocket server = null;
 	private TextArea chatBox;
-	private TextField msgField;
+	PrintWriter output = null;
 	
-	public Server(String serverName, int serverPort, TextArea chatBox, TextField msgField) throws IOException {
-		this.serverName = serverName;
+	public Server(int serverPort, TextArea chatBox) throws IOException {
 		this.chatBox = chatBox;
-		this.msgField = msgField;
 		server = new ServerSocket(serverPort);
 	}
 	
 	public void run() throws IOException {
-		Scanner s = new Scanner(System.in);
 		System.out.println("[System]: Waiting for client...");
 		Socket client = server.accept();
 		System.out.println("[System]: Client connected.");
 		
-
-		
-		BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 		
 		ConnectionHandler serverConnection = new ConnectionHandler(client, chatBox);
-		PrintWriter output = new PrintWriter(client.getOutputStream(), true);
-		
-
-		String msg = "";
+		output = new PrintWriter(client.getOutputStream(), true);
 		
 		new Thread(serverConnection).start();
 		
-		while(!msg.equals("END")) {
-			System.out.println("message: ");
-			msg = keyboard.readLine();
-			String fullMsg = "[" + serverName + "]: " + msg;
-			String encodedMsg = Base64.getEncoder().encodeToString(fullMsg.getBytes("UTF-8"));
-			output.println(encodedMsg);
-			
+		if(client.isConnected() == false) {
+			client.close();
+			server.close();
+			System.exit(0);
 		}
 		
-		s.close();
-		client.close();
-		server.close();
-		System.exit(0);
 	}
 	
-	public String sendMessage() {
-		String msg = msgField.getText();
-		msgField.clear();
-		return msg;
+	public void sendMessage(String msg) {
+		try {
+			String encodedMsg = Base64.getEncoder().encodeToString(msg.getBytes("UTF-8"));
+			output.println(encodedMsg);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			System.out.println("problem encoding");
+		}
 	}
 
 }

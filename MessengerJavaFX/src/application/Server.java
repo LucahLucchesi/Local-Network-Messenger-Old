@@ -20,9 +20,9 @@ public class Server {
 	}
 	
 	public void run() throws IOException {
-		System.out.println("[System]: Waiting for client...");
+		chatBox.appendText("[System]: Waiting for client...\n");
 		Socket client = server.accept();
-		System.out.println("[System]: Client connected.");
+		chatBox.appendText("[System]: Client connected.\n");
 		
 		
 		ConnectionHandler serverConnection = new ConnectionHandler(client, chatBox);

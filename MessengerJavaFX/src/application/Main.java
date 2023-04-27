@@ -100,10 +100,12 @@ public class Main extends Application {
 				@Override
 				public void handle(WindowEvent t) {
 					if(hostServer != null) {
+						hostServer.sendServerMessage("[System]: Server Closed.");
 						hostServer.closeConnection();
 					}else if(client != null) {
+						client.sendClientMessage("[System]: Client Disconnected.");
 						client.closeConnection();
-				}
+					}
 					Platform.exit();
 					System.exit(0);
 				}

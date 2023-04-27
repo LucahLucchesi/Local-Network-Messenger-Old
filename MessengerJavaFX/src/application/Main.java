@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,15 +14,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	String username;
+	int port;
+	String ip;
+	Server hostServer = null;
+	Client client = null;
+	
 	@Override
 	public void start(Stage app) {
 		try {
+			
+			
+			
 			//Info Window Setup
 			RadioButton hostButton = new RadioButton("Host");
 			RadioButton joinButton = new RadioButton("Join");
@@ -56,12 +66,12 @@ public class Main extends Application {
 			confirm.setDisable(true);
 			
 			HBox radioButtons = new HBox(hostButton, joinButton);
-			HBox username = new HBox(userLabel, userField);
-			HBox ip = new HBox(ipLabel, ipField);
-			HBox port = new HBox(portLabel, portField);
+			HBox usernameBox = new HBox(userLabel, userField);
+			HBox ipBox = new HBox(ipLabel, ipField);
+			HBox portBox = new HBox(portLabel, portField);
 			
-			VBox infoWindow = new VBox(radioButtons, username, port, ip, confirm);
-			Scene infoScene = new Scene(infoWindow, 300, 300);
+			VBox infoWindow = new VBox(radioButtons, usernameBox, portBox, ipBox, confirm);
+			Scene infoScene = new Scene(infoWindow, 300, 200);
 			
 			//Chat window setup
 			TextArea chatBox = new TextArea();
@@ -90,7 +100,6 @@ public class Main extends Application {
 					ipField.setEditable(false);
 					ipField.clear();
 					confirm.setDisable(false);
-					
 				}
 			});
 			joinButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,11 +114,48 @@ public class Main extends Application {
 			confirm.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					app.close();
-					app.setScene(chatBoxScene);
-					app.setTitle("MessengerFX");
-					app.show();
 					
+					if(hostButton.isSelected()) {
+						username = userField.getText();
+						port = Integer.parseInt(portField.getText());
+						try {
+							hostServer = new Server(port, chatBox);
+							app.close();
+							app.setScene(chatBoxScene);
+							app.setTitle("MessengerFX");
+							app.show();
+							hostServer.run();
+						}catch(IOException e) {
+							System.out.println("Server creation failed");
+						}
+					}else {
+						username = userField.getText();
+						port = Integer.parseInt(portField.getText());
+						ip = ipField.getText();
+						try {
+							client = new Client(ip, port, chatBox);
+							app.close();
+							app.setScene(chatBoxScene);
+							app.setTitle("MessengerFX");
+							app.show();
+							client.run();
+						}catch(IOException e) {
+							System.out.println("Connection failed");
+						}
+						
+					}
+				}
+			});
+			sendButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					String fullMsg = "[" + username + "]: " + messageField.getText();
+					chatBox.appendText(fullMsg + "\n");
+					if(hostServer != null) {
+						hostServer.sendServerMessage(fullMsg);
+					}else {
+						client.sendClientMessage(fullMsg);
+					}
 				}
 			});
 			

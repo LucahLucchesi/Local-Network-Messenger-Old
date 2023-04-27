@@ -76,11 +76,13 @@ public class Main extends Application {
 			//Chat window setup
 			TextArea chatBox = new TextArea();
 			TextField messageField = new TextField();
-			Button sendButton = new Button("send");
+			Button sendButton = new Button("Send");
 			
 			chatBox.setEditable(false);
 			chatBox.setMaxSize(400, 250);
+			chatBox.setWrapText(true);
 			messageField.setEditable(true);
+			
 			
 			HBox messageSender = new HBox(messageField, sendButton);
 			VBox chatWindow = new VBox(chatBox, messageSender);
@@ -151,6 +153,7 @@ public class Main extends Application {
 				public void handle(ActionEvent event) {
 					String fullMsg = "[" + username + "]: " + messageField.getText();
 					chatBox.appendText(fullMsg + "\n");
+					messageField.clear();
 					if(hostServer != null) {
 						hostServer.sendServerMessage(fullMsg);
 					}else {

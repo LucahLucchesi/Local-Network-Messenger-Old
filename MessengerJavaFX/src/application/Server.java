@@ -32,6 +32,7 @@ public class Server {
 		new Thread(serverConnection).start();
 		
 		if(isClosing) {
+			System.out.println("program closed");
 			output.println(Base64.getEncoder().encodeToString("[System]: Server Closed.".getBytes("UTF-8")));
 			client.close();
 			server.close();

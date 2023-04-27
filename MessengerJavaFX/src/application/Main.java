@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application {
@@ -94,12 +96,18 @@ public class Main extends Application {
 			app.setTitle("Info");
 			app.show();
 			
-			app.setOnCloseRequest(event -> {
-				if(hostServer != null) {
-					hostServer.closeConnection();
-				}else if(client != null) {
-					client.closeConnection();
+			app.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent t) {
+					if(hostServer != null) {
+						hostServer.closeConnection();
+					}else if(client != null) {
+						client.closeConnection();
 				}
+					Platform.exit();
+					System.exit(0);
+				}
+				
 			});
 			
 			hostButton.setOnAction(new EventHandler<ActionEvent>() {

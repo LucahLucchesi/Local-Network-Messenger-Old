@@ -31,6 +31,7 @@ public class Server {
 		new Thread(serverConnection).start();
 		
 		if(client.isConnected() == false) {
+			chatBox.appendText("[System]: Client Disconnected.");
 			client.close();
 			server.close();
 			System.exit(0);

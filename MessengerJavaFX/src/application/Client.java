@@ -34,6 +34,7 @@ public class Client {
 		new Thread(serverConnection).start();
 		
 		if(socket.isConnected() == false) {
+			chatBox.appendText("[System]: Server Closed.");
 			socket.close();
 			System.exit(0);
 		}

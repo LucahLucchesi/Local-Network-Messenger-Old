@@ -13,6 +13,7 @@ public class Server {
 	private ServerSocket server = null;
 	private TextArea chatBox;
 	PrintWriter output = null;
+	private boolean isClosing = false;
 	
 	public Server(int serverPort, TextArea chatBox) throws IOException {
 		this.chatBox = chatBox;
@@ -30,8 +31,8 @@ public class Server {
 		
 		new Thread(serverConnection).start();
 		
-		if(client.isConnected() == false) {
-			chatBox.appendText("[System]: Client Disconnected.");
+		if(isClosing) {
+			output.println(Base64.getEncoder().encodeToString("[System]: Server Closed.".getBytes("UTF-8")));
 			client.close();
 			server.close();
 			System.exit(0);
@@ -47,6 +48,10 @@ public class Server {
 			// TODO Auto-generated catch block
 			System.out.println("problem encoding");
 		}
+	}
+	
+	public void closeConnection() {
+		isClosing = true;
 	}
 
 }

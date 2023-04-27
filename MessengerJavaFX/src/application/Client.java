@@ -13,8 +13,11 @@ public class Client {
 
 	private Socket socket = null;
 	private TextArea chatBox;
+	private boolean isClosing = false;
 	
 	PrintWriter output = null;
+	
+	
 	
 	
 	public Client(String serverIp, int serverPort, TextArea chatBox) throws UnknownHostException, IOException {
@@ -33,8 +36,8 @@ public class Client {
 		
 		new Thread(serverConnection).start();
 		
-		if(socket.isConnected() == false) {
-			chatBox.appendText("[System]: Server Closed.");
+		if(isClosing) {
+			output.println(Base64.getEncoder().encodeToString("[System]: Client Disconnected.".getBytes("UTF-8")));
 			socket.close();
 			System.exit(0);
 		}

@@ -91,6 +91,7 @@ public class Main extends Application {
 			sendButton.setDefaultButton(true);
 			
 			HBox messageSender = new HBox(messageField, sendButton);
+			messageSender.setPadding(new Insets(10, 10, 10, 10));
 			VBox chatWindow = new VBox(chatBox, messageSender);
 			chatWindow.setPadding(new Insets(10, 10, 10, 10));
 			
@@ -143,11 +144,11 @@ public class Main extends Application {
 						username = userField.getText();
 						port = Integer.parseInt(portField.getText());
 						try {
-							hostServer = new Server(port, chatBox);
 							app.close();
 							app.setScene(chatBoxScene);
 							app.setTitle("MessengerFX");
 							app.show();
+							hostServer = new Server(port, chatBox);
 							hostServer.run();
 						}catch(IOException e) {
 							System.out.println("Server creation failed");
@@ -157,11 +158,11 @@ public class Main extends Application {
 						port = Integer.parseInt(portField.getText());
 						ip = ipField.getText();
 						try {
-							client = new Client(ip, port, chatBox);
 							app.close();
 							app.setScene(chatBoxScene);
 							app.setTitle("MessengerFX");
 							app.show();
+							client = new Client(ip, port, chatBox);
 							client.run();
 						}catch(IOException e) {
 							System.out.println("Connection failed");

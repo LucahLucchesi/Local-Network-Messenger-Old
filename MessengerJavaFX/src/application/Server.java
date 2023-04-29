@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 
 import java.io.*;
 
-public class Server {
+public class Server implements Runnable{
 	
 	private ServerSocket server = null;
 	private TextArea chatBox;
@@ -19,24 +19,41 @@ public class Server {
 		this.chatBox = chatBox;
 		server = new ServerSocket(serverPort);
 	}
-	
-	public void run() throws IOException {
+	@Override
+	public void run() {
 		chatBox.appendText("[System]: Waiting for client...\n");
-		Socket client = server.accept();
+		Socket client = null;
+		try {
+			client = server.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		chatBox.appendText("[System]: Client connected.\n");
 		
 		
-		ConnectionHandler serverConnection = new ConnectionHandler(client, chatBox);
-		output = new PrintWriter(client.getOutputStream(), true);
+		ConnectionHandler serverConnection = null;
+		try {
+			serverConnection = new ConnectionHandler(client, chatBox);
+			output = new PrintWriter(client.getOutputStream(), true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		new Thread(serverConnection).start();
 		
 	
-			if(isClosing) {
+		if(isClosing) {
+			try {
 				client.close();
 				server.close();
-				System.exit(0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			System.exit(0);
+		}
 	
 		
 		

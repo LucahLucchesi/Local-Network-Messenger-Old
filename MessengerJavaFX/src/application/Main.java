@@ -51,19 +51,17 @@ public class Main extends Application {
 			hostButton.setPadding(inset);
 			joinButton.setPadding(inset);
 			
-			userLabel.setPadding(inset);
-			ipLabel.setPadding(inset);
-			portLabel.setPadding(inset);
+			userLabel.setPadding(new Insets(0, 10, 0, 10));
+			portLabel.setPadding(new Insets(0, 41, 0, 10));
+			ipLabel.setPadding(new Insets(0, 25, 0, 10));
 			
 			userField.setEditable(false);
-			userField.setPrefColumnCount(15);
-			userField.setPadding(inset);
-			ipField.setEditable(false);
-			ipField.setPrefColumnCount(15);
-			ipField.setPadding(inset);
+			userField.setPrefColumnCount(8);
 			portField.setEditable(false);
-			portField.setPrefColumnCount(5);
-			portField.setPadding(inset);
+			portField.setPrefColumnCount(8);
+			ipField.setEditable(false);
+			ipField.setPrefColumnCount(8);
+			
 			
 			confirm.setDisable(true);
 			
@@ -73,7 +71,13 @@ public class Main extends Application {
 			HBox portBox = new HBox(portLabel, portField);
 			
 			VBox infoWindow = new VBox(radioButtons, usernameBox, portBox, ipBox, confirm);
-			Scene infoScene = new Scene(infoWindow, 300, 200);
+			
+			usernameBox.setPadding(new Insets(0, 0, 5, 0));
+			ipBox.setPadding(new Insets(0, 0, 5, 0));
+			portBox.setPadding(new Insets(0, 0, 5, 0));
+			infoWindow.setPadding(new Insets(0, 10, 10, 10));
+			
+			Scene infoScene = new Scene(infoWindow, 220, 170);
 			
 			//Chat window setup
 			TextArea chatBox = new TextArea();

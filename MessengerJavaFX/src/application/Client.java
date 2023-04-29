@@ -9,8 +9,6 @@ import javafx.scene.control.TextArea;
 import java.io.*;
 
 public class Client implements Runnable{
-	
-
 	private Socket socket = null;
 	private TextArea chatBox;
 	private boolean isClosing = false;
@@ -31,8 +29,6 @@ public class Client implements Runnable{
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-
-		
 		new Thread(serverConnection).start();
 
 		if(isClosing) {

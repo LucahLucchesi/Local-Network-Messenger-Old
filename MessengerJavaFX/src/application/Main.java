@@ -1,7 +1,6 @@
 package application;
 	
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 public class Main extends Application {
 	String username;
 	int port;
@@ -30,8 +28,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage app) {
 		try {
-			
-			
 			//Info Window Setup
 			RadioButton hostButton = new RadioButton("Host");
 			RadioButton joinButton = new RadioButton("Join");
@@ -59,7 +55,6 @@ public class Main extends Application {
 			portField.setPrefColumnCount(8);
 			ipField.setEditable(false);
 			ipField.setPrefColumnCount(8);
-			
 			
 			confirm.setDisable(true);
 			
@@ -90,8 +85,8 @@ public class Main extends Application {
 			sendButton.setDefaultButton(true);
 			
 			HBox messageSender = new HBox(messageField, sendButton);
-			messageSender.setPadding(new Insets(10, 0, 0, 0));
 			VBox chatWindow = new VBox(chatBox, messageSender);
+			messageSender.setPadding(new Insets(10, 0, 0, 0));
 			chatWindow.setPadding(new Insets(10, 10, 10, 10));
 			
 			Scene chatBoxScene = new Scene(chatWindow);

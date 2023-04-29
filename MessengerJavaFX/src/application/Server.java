@@ -23,40 +23,29 @@ public class Server implements Runnable{
 	public void run() {
 		chatBox.appendText("[System]: Waiting for client...\n");
 		Socket client = null;
-		try {
-			client = server.accept();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		chatBox.appendText("[System]: Client connected.\n");
-		
-		
 		ConnectionHandler serverConnection = null;
 		try {
+			client = server.accept();
 			serverConnection = new ConnectionHandler(client, chatBox);
 			output = new PrintWriter(client.getOutputStream(), true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
+		chatBox.appendText("[System]: Client connected.\n");
 		
 		new Thread(serverConnection).start();
 		
-	
 		if(isClosing) {
 			try {
 				client.close();
 				server.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 			System.exit(0);
 		}
-	
-		
-		
 	}
 	
 	public void sendServerMessage(String msg) {

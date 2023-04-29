@@ -17,25 +17,19 @@ public class Client implements Runnable{
 	
 	PrintWriter output = null;
 	
-	
-	
-	
 	public Client(String serverIp, int serverPort, TextArea chatBox) throws UnknownHostException, IOException {
 		this.chatBox = chatBox;
 		socket = new Socket(serverIp, serverPort);
 	}
 	@Override
 	public void run() {
-		
-		
-
 		ConnectionHandler serverConnection = null;
 		try {
 			serverConnection = new ConnectionHandler(socket, chatBox);
 			output = new PrintWriter(socket.getOutputStream(), true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		
@@ -46,15 +40,10 @@ public class Client implements Runnable{
 				socket.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 			System.exit(0);
-		}
-
-		
-		
-		
-		
+		}	
 	}
 	
 	public void sendClientMessage(String msg) {

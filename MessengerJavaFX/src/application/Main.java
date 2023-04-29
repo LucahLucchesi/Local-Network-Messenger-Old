@@ -86,7 +86,7 @@ public class Main extends Application {
 			chatBox.setMaxSize(400, 250);
 			chatBox.setWrapText(true);
 			messageField.setEditable(true);
-			messageField.setPadding(new Insets(0, 10, 0, 0));
+			messageField.setPrefColumnCount(20);
 			sendButton.setDefaultButton(true);
 			
 			HBox messageSender = new HBox(messageField, sendButton);

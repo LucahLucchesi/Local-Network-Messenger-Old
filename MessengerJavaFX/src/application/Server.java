@@ -31,6 +31,8 @@ public class Server implements Runnable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
+			isClosing = true;
+			System.exit(0);
 		}
 		chatBox.appendText("[System]: Client connected.\n");
 		

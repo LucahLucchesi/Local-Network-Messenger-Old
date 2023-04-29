@@ -32,7 +32,6 @@ public class Main extends Application {
 		try {
 			
 			
-			
 			//Info Window Setup
 			RadioButton hostButton = new RadioButton("Host");
 			RadioButton joinButton = new RadioButton("Join");
@@ -44,12 +43,11 @@ public class Main extends Application {
 			TextField ipField = new TextField();
 			TextField portField = new TextField();
 			Button confirm = new Button("Confirm");
-			Insets inset = new Insets(10);
 			
 			hostButton.setToggleGroup(group);
 			joinButton.setToggleGroup(group);
-			hostButton.setPadding(inset);
-			joinButton.setPadding(inset);
+			hostButton.setPadding(new Insets(10));
+			joinButton.setPadding(new Insets(10));
 			
 			userLabel.setPadding(new Insets(0, 10, 0, 10));
 			portLabel.setPadding(new Insets(0, 41, 0, 10));
@@ -88,10 +86,11 @@ public class Main extends Application {
 			chatBox.setMaxSize(400, 250);
 			chatBox.setWrapText(true);
 			messageField.setEditable(true);
+			messageField.setPadding(new Insets(0, 10, 0, 0));
 			sendButton.setDefaultButton(true);
 			
 			HBox messageSender = new HBox(messageField, sendButton);
-			messageSender.setPadding(new Insets(10, 10, 10, 10));
+			messageSender.setPadding(new Insets(10, 0, 0, 0));
 			VBox chatWindow = new VBox(chatBox, messageSender);
 			chatWindow.setPadding(new Insets(10, 10, 10, 10));
 			

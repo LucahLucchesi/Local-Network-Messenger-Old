@@ -149,7 +149,7 @@ public class Main extends Application {
 							app.setTitle("MessengerFX");
 							app.show();
 							hostServer = new Server(port, chatBox);
-							hostServer.run();
+							new Thread(hostServer).start();
 						}catch(IOException e) {
 							System.out.println("Server creation failed");
 						}
@@ -163,7 +163,7 @@ public class Main extends Application {
 							app.setTitle("MessengerFX");
 							app.show();
 							client = new Client(ip, port, chatBox);
-							client.run();
+							new Thread(client).start();
 						}catch(IOException e) {
 							System.out.println("Connection failed");
 						}

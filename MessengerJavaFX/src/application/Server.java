@@ -31,14 +31,13 @@ public class Server {
 		
 		new Thread(serverConnection).start();
 		
-		while(true) {
+	
 			if(isClosing) {
 				client.close();
 				server.close();
 				System.exit(0);
-				break;
 			}
-		}
+	
 		
 		
 	}

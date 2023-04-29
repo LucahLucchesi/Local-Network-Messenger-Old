@@ -35,13 +35,12 @@ public class Client {
 
 		
 		new Thread(serverConnection).start();
-		while(true) {
+
 			if(isClosing) {
 				socket.close();
 				System.exit(0);
-				break;
 			}
-		}
+
 		
 		
 		

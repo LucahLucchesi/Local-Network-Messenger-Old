@@ -1,5 +1,4 @@
 package application;
-	
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,7 +31,7 @@ public class Main extends Application {
 	Client client = null;
 	
 	/**
-	 *
+	 *GUI creation and event handlers
 	 */
 	@Override
 	public void start(Stage app) {
@@ -77,7 +76,6 @@ public class Main extends Application {
 			infoWindow.setPadding(new Insets(0, 10, 10, 10));
 			//Info window scene
 			Scene infoScene = new Scene(infoWindow, 220, 170);
-			
 			//Chat window setup
 			TextArea chatBox = new TextArea();
 			TextField messageField = new TextField();
@@ -115,7 +113,6 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				}
-				
 			});
 			//When the host radio button is activated, the Username and Port fields enabled for input. The IP field is disabled
 			//because the host does not need to enter their own IP address
@@ -144,7 +141,6 @@ public class Main extends Application {
 			confirm.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					
 					if(hostButton.isSelected()) {
 						username = userField.getText();
 						port = Integer.parseInt(portField.getText());
@@ -174,7 +170,6 @@ public class Main extends Application {
 						}catch(IOException e) {
 							System.out.println("Connection failed");
 						}
-						
 					}
 				}
 			});
@@ -193,13 +188,10 @@ public class Main extends Application {
 					}
 				}
 			});
-			
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 	public static void main(String[] args) {
 		launch(args);
 	}

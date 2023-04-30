@@ -8,6 +8,12 @@ import javafx.scene.control.TextArea;
 
 import java.io.*;
 
+/**
+ * @author Alex Berg
+ * @section CS-145-001
+ * 
+ * This handles the client's connection to the server as well as sending packets.
+ */
 public class Client implements Runnable{
 	
 
@@ -21,8 +27,11 @@ public class Client implements Runnable{
 		this.chatBox = chatBox;
 		socket = new Socket(serverIp, serverPort);
 	}
+	
 	@Override
 	public void run() {
+		// creates a new instance of connectionHandler
+		// Creates a PrintWriter set to output messages to the server
 		ConnectionHandler serverConnection = null;
 		try {
 			serverConnection = new ConnectionHandler(socket, chatBox);
@@ -34,7 +43,8 @@ public class Client implements Runnable{
 
 		
 		new Thread(serverConnection).start();
-
+		
+		// if true, close the connection.
 		if(isClosing) {
 			try {
 				socket.close();
@@ -46,16 +56,24 @@ public class Client implements Runnable{
 		}	
 	}
 	
+	/**
+	 * @param msg 
+	 * 
+	 * Encodes message into base64 then sends the message to the server.
+	 */
 	public void sendClientMessage(String msg) {
 		try {
 			String encodedMsg = Base64.getEncoder().encodeToString(msg.getBytes("UTF-8"));
 			output.println(encodedMsg);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			System.out.println("problem encoding");
+			System.out.println(e.getMessage());
 		}
 	}
 	
+	/**
+	 * Sets boolean isClosing to true in order to close the connection.
+	 */
 	public void closeConnection() {
 		isClosing = true;
 	}

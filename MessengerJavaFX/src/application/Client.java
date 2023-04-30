@@ -15,8 +15,6 @@ import java.io.*;
  * This handles the client's connection to the server as well as sending packets.
  */
 public class Client implements Runnable{
-	
-
 	private Socket socket = null;
 	private TextArea chatBox;
 	private boolean isClosing = false;
@@ -40,8 +38,6 @@ public class Client implements Runnable{
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-
-		
 		new Thread(serverConnection).start();
 		
 		// if true, close the connection.

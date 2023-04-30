@@ -141,9 +141,9 @@ public class Main extends Application {
 			confirm.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					username = userField.getText();
+					port = Integer.parseInt(portField.getText());
 					if(hostButton.isSelected()) {
-						username = userField.getText();
-						port = Integer.parseInt(portField.getText());
 						try {
 							app.close();
 							app.setScene(chatBoxScene);
@@ -156,8 +156,6 @@ public class Main extends Application {
 							System.out.println("Server creation failed");
 						}
 					}else {
-						username = userField.getText();
-						port = Integer.parseInt(portField.getText());
 						ip = ipField.getText();
 						try {
 							app.close();

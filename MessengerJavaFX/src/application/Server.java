@@ -9,8 +9,8 @@ import javafx.scene.control.TextArea;
 import java.io.*;
 
 /**
- * @author Alex Berg
- * @section CS-145-001
+ * @author Lucah L, Alex B.
+ * @section CS145-001
  * 
  * This handles the server's connection the the client as well as sending packets.
  */
@@ -54,7 +54,6 @@ public class Server implements Runnable{
 				client.close();
 				server.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 			}
 			System.exit(0);
@@ -71,7 +70,6 @@ public class Server implements Runnable{
 			String encodedMsg = Base64.getEncoder().encodeToString(msg.getBytes("UTF-8"));
 			output.println(encodedMsg);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 	}

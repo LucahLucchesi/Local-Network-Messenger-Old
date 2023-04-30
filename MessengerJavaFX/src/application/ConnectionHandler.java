@@ -6,8 +6,8 @@ import java.util.Base64;
 import javafx.scene.control.TextArea;
 
 /**
- * @author Alex Berg
- * @section CS-145-001
+ * @author Lucah L, Alex B.
+ * @section CS145-001
  *
  * Both server and client starts a new thread of ConnectionHandler to manage incoming packets.
  */
@@ -47,7 +47,6 @@ public class ConnectionHandler implements Runnable {
 			try {
 				in.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 			}
 		}
